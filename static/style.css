@@ -1,0 +1,13 @@
+.navbg{
+    background-color: cadetblue;
+    padding: 20px;
+}
+
+.divmr{
+    padding-top: 70px;
+}
+
+.textcontent{
+    display: flex;
+    flex-direction: row;
+}
