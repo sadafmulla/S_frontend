@@ -1,0 +1,85 @@
+{%extends 'header2.html'%}
+
+{% block title%} Result {%endblock title%}
+{%block body%}
+
+<div class="container" style="padding-top:60px;padding-bottom:30px;">
+
+  <div class="container mb-3">
+    <div class="textcontent">
+      <h4 style="padding-left:60px;"> Total Comments </h4>
+      <input type="text" style="width: 300px ;" class="form-control form-control-lg mx-3" width="48" id="total">
+
+
+      <h4 style="padding-left:100px;"> Toxic Comments </h4>
+      <input type="text" style="width: 300px ;" class="form-control form-control-lg mx-3" id="total">
+    </div>
+  </div>
+</div>
+<div class="container my-5">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap-grid.css" rel="stylesheet"/>
+<div class="row">
+  <div class="col-9">
+    
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th  scope="col">Toxic Comments</th> 
+          </tr>
+        </thead>
+          <tr>
+            <!-- <td class="col-md-1"></td> -->
+            <td class="col-md-2">Row 1</td>
+          </tr>
+          <tr>
+            <!-- <td class="col-md-1"></td> -->
+            <td class="col-md-2">Row 2</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+<div class="col-3">
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th  scope="col">Hide/Remove</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="form-check float-xl-end" style="padding-right: 60px;">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label mx-2" for="flexCheckDefault">
+                Delete
+              </label>
+            </div>
+          </td>
+        </tr>
+          <tr>
+            <td >
+              <div class="form-check float-xl-end" style="padding-right: 60px;">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label mx-2" for="flexCheckDefault">
+                  Delete
+                </label>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<center><button class="btn btn-primary my-4" >Apply</button></center>
+
+<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);margin-top: 280px;">
+  © 2022 Copyright: Team Reactant
+</div>
+
+{% endblock body%}
