@@ -7,7 +7,6 @@ from django.http import HttpResponse
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
-
 # -*- coding: utf-8 -*-
 
 # Sample Python code for youtube.commentThreads.list
@@ -15,7 +14,7 @@ import googleapiclient.errors
 # https://developers.google.com/explorer-help/code-samples#python
 
 import os
-
+toxicids=[]
 import googleapiclient.discovery
 # Create your views here.
 def getresult(list):
@@ -31,7 +30,6 @@ def getcomment(lnk):
     # Disable OAuthlib's HTTPS verification when running locally.
     # *DO NOT* leave this option enabled in production.
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-
     api_service_name = "youtube"
     api_version = "v3"
     DEVELOPER_KEY = "AIzaSyCoD2fDoUNW7zq9j1UvcjFpdGnChdRTY8Q"
@@ -50,11 +48,12 @@ def getcomment(lnk):
     for i in cmt:
         text.append(i['snippet']['topLevelComment']['snippet']['textDisplay'])
         ids.append(i['id'])
-    print(text)
+    # print(text)
     result=getresult(text)
-    print(ids)
+    # print(ids)
     return result,text,ids
 def home(request):
+    global toxicids
     if request.method=="POST":
         scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
@@ -66,44 +65,46 @@ def home(request):
         m=""
         n=""
         str2=""
+        some_var = request.POST.getlist('checks[]')
+        print(some_var)
         # Get credentials and create an API client
         flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
             client_secrets_file, scopes,redirect_uri='urn:ietf:wg:oauth:2.0:oob')
         credentials = flow.authorization_url(prompt='consent')
         str2=credentials[0]
         if request.POST.get('btn2'):
-            print("++++++++")     
+            # print("++++++++")     
             link=request.POST['Text']
             link=link.split("/")[-1]
             link=str(link)
             link = link[-11:]
             result,text,ids=getcomment(link)
             toxiccomment=[]
-            toxicids=[]
             n=len(text)
             for i in range(len(result)):
                 if result[i]>0.5:
                     toxiccomment.append(text[i])
                     toxicids.append(ids[i])
             m=len(toxiccomment)
+            res = dict(zip(toxicids, toxiccomment))
         if request.POST.get('btn'):
-            print("-------")
             cred=request.POST['text']
             api_service_name = "youtube"
             api_version = "v3"
             flow.fetch_token(code=cred)
+            print(toxicids)
             youtube = googleapiclient.discovery.build(
                 api_service_name, api_version, credentials=flow.credentials)
-            str1=","
-            print("&&&&&&&&")
+            str1=str(",".join(toxicids))
+            print(str1)
             req = youtube.comments().setModerationStatus(
-                id='UgxlSwp2HK9BDVckyt54AaABAg',
+                id=str1,
                 moderationStatus="heldForReview",
                 banAuthor=False
             )
             req.execute()
             return render(request,'sucess.html')  
-        return render(request,'result.html',{'toxiccomment':toxiccomment,'m':m,'n':n,'str1':str2})
+        return render(request,'result.html',{'res':res,'m':m,'n':n,'str1':str2})
     return render(request,'index.html')
 
 # def deletecomments(list):

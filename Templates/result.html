@@ -27,21 +27,27 @@
           </tr>
         </thead>
         <tbody>
-      {% for i in toxiccomment  %}
+      {% for key,val in res.items  %}
           <tr >
             <td style="padding: 30px;">
-              {{i}}
-                  <div class="form-check float-xl-end">
-                    <input class="form-check-input" type="checkbox" value={{i}} id="flexCheckDefault">
+              {{val}}
+                  <!-- <div class="form-check float-xl-end">
+                    <input class="form-check-input" type="checkbox" value={{key}} name="checks[]" checked id="checks">
                     <label class="form-check-label mx-2" for="flexCheckDefault">
                      Delete
                     </label>
-                  </div>
+                  </div> -->
             </td>
           </tr>
         {% endfor %}
         </tbody>
       </table>
+     <!--  <div class="form-check float-xl-end">
+        <input type="checkbox" onClick="toggle(this)" />
+        <label class="form-check-label mx-2" for="flexCheckDefault">
+         Delete All
+        </label>
+      </div> -->
       <input type="hidden" id="id1" name={{str1}} >
       <button class="open-button" type="submit" onclick="openForm()">Delete</button>
       <div class="form-popup" id="myForm">
@@ -53,17 +59,24 @@
           <input type="text" placeholder="Enter Token" name="text" required>
           <div class="field btn">
             <div class="btn-layer"></div>
-            <input type="submit" name="btn" value="Login">
+            <input type="submit" name="btn" value="Delete">
          </div>
         </form>
       </div>
 </div>
+<br><br><br>
 <script>
   function openForm() {
     a = document.getElementById("id1").name;
     window.open(a,'_blank')
     console.log(a)
     document.getElementById("myForm").style.display = "block";
+  }
+  function toggle(source) {
+    checkboxes = document.getElementsByName('checks[]');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = source.checked;
+    }
   }
   </script>
 <style>
