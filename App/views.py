@@ -32,7 +32,7 @@ def getcomment(lnk):
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
     api_service_name = "youtube"
     api_version = "v3"
-    DEVELOPER_KEY = "AIzaSyCoD2fDoUNW7zq9j1UvcjFpdGnChdRTY8Q"
+    DEVELOPER_KEY = "YOUR_DEV_KEY"
 
     youtube = googleapiclient.discovery.build(
         api_service_name, api_version, developerKey = DEVELOPER_KEY)
